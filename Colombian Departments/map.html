@@ -3,7 +3,49 @@
 <head>
     <meta charset="utf-8">
     <style>
-        /*CSS goes here. */
+        .d05, .d50 {
+            fill: #33ff78;
+        }
+
+        .d19, .d63 {
+            fill: #3591ff;
+        }
+
+        .d86, .d95, .d76, .d25, .d13, .d44 {
+            fill: #f8ff3c;
+        }
+
+        .d81, .d97, .d23, .d52 {
+            fill: #9f7fff;
+        }
+
+        .d68, .d47, .d27, .d94, .d85 {
+            fill: #5cd65c;
+        }
+
+        .d17, .d11, .d88 {
+            fill: #248f24;
+        }
+
+        .d18, .d73 {
+            fill: #ff8880;
+        }
+
+        .d91, .d41 {
+            fill: #75ff54;
+        }
+
+        .d99, .d66, .d70, .d08 {
+            fill: #ff9c59;
+        }
+
+        .d20, .d15 {
+            fill: #d281ff;
+        }
+
+        .d54, .d19 {
+            fill: #86c7ff;
+        }
     </style>
 </head>
 <body>
@@ -11,12 +53,12 @@
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script>
 
-    var width = 960,
-            height = 1160;
+    var width = 900,
+            height = 1000;
 
     var projection = d3.geo.mercator()
             .center([-74, 4.5])
-            .scale(1500)
+            .scale(3000)
             .translate([width / 2, height / 2]);
 
     var path = d3.geo.path()
@@ -25,22 +67,33 @@
     var svg = d3.select("body")
             .append("svg")
             .attr("width", width)
-            .attr("height", height)
-            .append("g")
-            .attr("class", "map");
+            .attr("height", height);
 
-    d3.json("col.json", function(error, mapData) {
+    d3.json("col.json", function (error, mapData) {
         var features = mapData.features;
-        svg.selectAll("path")
+        var states = svg.selectAll("path")
                 .data(features)
                 .enter()
                 .append("path")
                 .attr("d", path)
-                .style('fill', 'lightBlue')
+                .attr("class", function (d) {
+                    return "d" + d.properties["DPTO"];
+                })
                 .style('stroke', 'black')
-                .style('stroke-width', 0.5);
-    });
+                .style('stroke-width', 0.5)
+                .style('fill-opacity', .5);
 
+        states.on("mouseover", function (d) {
+            d3.select(this)
+                    .style("fill-opacity", 1)
+                    .style('stroke-width', 2);
+        });
+        states.on("mouseout", function (d) {
+            d3.select(this)
+                    .style("fill-opacity", .5)
+                    .style('stroke-width', 0.5);
+        });
+    });
 
 </script>
 </body>

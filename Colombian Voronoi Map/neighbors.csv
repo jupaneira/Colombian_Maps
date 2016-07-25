@@ -1,0 +1,33 @@
+id,department,neighbors_id
+0,Amazonas,22-7-30
+1,Antioquia,12-4-26-5-13-6-24-11
+2,Arauca,5-8-31
+3,Atlántico,4-18
+4,Magdalena,4-3-17-10
+5,Boyacá,21-2-8-13-1-26
+6,Caldas,1-13-28-24
+7,Caquetá,16-19-15-30-0-22-9
+8,Casanare,2-31-19-13-5
+9,Cauca,29-28-16-7-22-20
+10,Cesar,17-21-26-4-18
+11,Chocó,1-24-29
+12,Córdoba,27-1-4
+13,Cundinamarca,1-5-8-19-16-28-6
+14,Guainía,31-15-30
+15,Guaviare,19-31-14-30-8
+16,Huila,28-13-19-7-9
+17,La Guajira,10-18
+18,Magdalena,17-10-4-3
+19,Meta,13-8-31-15-7-16
+20,Nariño,9-22
+21,Norte de Santander,10-5-26
+22,Putumayo,9-7-0-20
+23,Quindio,24-28-29
+24,Risaralda,1-6-28-23-29-11
+25,San Andrés,San Andrés y Providencia,-1,
+26,Santander,10-21-5-1-4
+27,Sucre,4-1-12
+28,Tolima,6-13-16-9-29-23-24
+29,Valle del Cauca,11-24-23-28-9
+30,Vaupés,15-14-0-7
+31,Vichada,2-8-19-15-14

@@ -27,8 +27,8 @@
     var voronoi = d3.geom.voronoi()
             .clipExtent([[-1, -1], [width + 1, height + 1]]);
 
-    var color = d3.scale.category10();
-    color.range(color.range().slice(0, 8));
+    var c1 = d3.scale.category20c();
+    var c2 = d3.scale.category20b();
 
     queue()
             .defer(d3.json, "col.json")
@@ -72,7 +72,6 @@
 
         var voronoi_departments = voronoi(coords);
 
-
         svg.selectAll(".voronoi")
                 .data(voronoi_departments)
                 .enter()
@@ -82,9 +81,8 @@
                     return d ? "M" + d.join("L") + "Z" : null;
                 })
                 .style("fill", function (d, i) {
-                    return color(d.color = d3.max(neighbors[i], function (n) {
-                                return voronoi_departments[n].color;
-                            }) + 1 | 0);
+                    if (i < 16) return c2(i + 4);
+                    else return c1(i % 20 + 2);
                 });
 
 

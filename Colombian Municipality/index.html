@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<style>
+
+    .municipalities {
+        fill: #222;
+    }
+
+    .municipalities :hover {
+        fill: orange;
+    }
+
+    .state-boundary {
+        fill: none;
+        stroke: #fff;
+        pointer-events: none;
+    }
+
+    .municipality-boundary {
+        fill: none;
+        stroke: #fff;
+        stroke-opacity: .25;
+        stroke-width: .5px;
+        pointer-events: none;
+    }
+
+</style>
+<body>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
+<script>
+
+    var width = 1000,
+            height = 950;
+
+    var projection = d3.geo.mercator()
+            .center([-74, 4.5])
+            .scale(2700)
+            .translate([width / 2, height / 2]);
+
+    var path = d3.geo.path()
+            .projection(projection);
+
+    var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width )
+            .attr("height", height);
+
+    d3.json("col_mpio_TOPOJSON.json", function(error, col_mpio) {
+        if (error) throw error;
+
+
+        svg.append("g")
+                .attr("class", "municipalities")
+                .selectAll("path")
+                .data(topojson.feature(col_mpio, col_mpio.objects.col_mpio).features)
+                .enter().append("path")
+                .attr("d", path)
+                .append("title")
+                .text(function (d) {
+                    return d.properties.NOMBRE_MPI;
+                });
+
+        svg.append("path")
+                .datum(topojson.mesh(col_mpio, col_mpio.objects.col_mpio, function(a, b) { return a.properties.NOMBRE_DPT != b.properties.NOMBRE_DPT; }))
+                .attr("class", "state-boundary")
+                .attr("d", path);
+
+        svg.append("path")
+                .datum(topojson.mesh(col_mpio, col_mpio.objects.col_mpio, function(a, b) { return a.properties.NOMBRE_DPT == b.properties.NOMBRE_DPT && a !== b; }))
+                .attr("class", "municipality-boundary")
+                .attr("d", path);
+    });
+
+    d3.select(self.frameElement).style("height", height + "px");
+
+</script>
+</body>
+</html>
